@@ -2,6 +2,7 @@ import sys
 import json
 
 from Scripts.server import Server
+from Scripts.control import Control
 from PyQt5.QtWidgets import QApplication
 
 archivo_parametros = open("parametros.json", encoding="utf-8")#Abrimos archivo
@@ -16,7 +17,11 @@ class ServidorInterfaz(QApplication):
     def __init__(self, port, host, argv):
         super().__init__(argv)
         self.server = Server(port, host)
+        self.control = Control(self)
 
+
+        self.control.senal_modo_actual.connect(self.server.mandar)
+        self.server.senal_cambio_modo.connect(self.control.cambiar_modo)
 
 
 if __name__ == '__main__':

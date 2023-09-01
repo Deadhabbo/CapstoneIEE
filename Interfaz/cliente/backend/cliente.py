@@ -92,9 +92,10 @@ class listen_thread(QThread):
             # indicados en los primeros 4 bytes recibidos.
             while len(mensaje) < largo_mensaje:
                 read_length = min(4096, largo_mensaje - len(mensaje))
-                mensaje.extend(self.socket_client.recv(read_length))
+                mensaje.extend(self.sock.recv(read_length))
 
             desencriptado_util = pickle.loads(mensaje)
+            print(desencriptado_util)
             self.senal_desencriptado.emit(desencriptado_util) # Emitimos senal 
 
 

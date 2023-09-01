@@ -10,12 +10,13 @@ PARAMETROS = json.load(archivo_parametros) # cargamos
 
 class Server(QObject):
 
+    senal_cambio_modo = pyqtSignal(str) 
+
     def __init__(self, port, host):
         super().__init__()
         self.host = host
         self.port = port
         self.sockets = {}
-        self.usuarios = {}
         self.threads_listen = {}
         
         self.socket_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -56,6 +57,7 @@ class Server(QObject):
     
     def escuchar(self, socket_cliente, address):
         socket_cliente = socket_cliente[0]
+        self.sockets[socket_cliente] = address
         address = address
         thread = listen_client_thread(self, socket_cliente)
         thread.senal_desconexion.connect(self.desconexion_usuario)
@@ -63,7 +65,10 @@ class Server(QObject):
         self.threads_listen[socket_cliente] = thread
         thread.start()
     
-    
+    def mandar(self, mensaje):
+        sock = list(self.sockets.keys())
+        sock = sock[0]
+        self.send(mensaje, sock)
 
     @staticmethod
     def send(mensaje, sock):
@@ -85,37 +90,25 @@ class Server(QObject):
         """
         print("Se recibe", recibido)
         client_socket = client_socket[0]
-        nombre = self.usuarios[client_socket]
-        if recibido[0] == "Anunciar":
-            self.juego.anunciar_valor_jugador(nombre, recibido[1])
+        comando = recibido[0]
+        contenido = recibido[1]
 
-        elif recibido[0] == "Pasar":
-            self.juego.pasar_jugador(nombre)
-        
-        elif recibido[0] == "Cambiar Dados":
-            self.juego.cambiar_dados_jugador(nombre)
-        
-        elif recibido[0] == "Poder":
-            self.juego.usar_poder(nombre, recibido[1])
-        
-        elif recibido[0] == "Dudar":
-            self.juego.dudar_jugador(nombre)
+        if comando == "modo":
+            self.senal_cambio_modo.emit(contenido)
 
-        elif recibido[0] == "Iniciar":
-            self.juego.comenzar_partida()
+        elif comando == "escrito":
+            print("Ha llegado el mensaje:", contenido)
+
         
-        elif recibido[0] == "Recibido":
-            pass
+        
 
     def desconexion_usuario(self, sock: socket) -> None:
         """
-        Si un cliente se desconectase informa en el log,
-        se recupera su nombre y se elimina su socket
+        Si un cliente se desconectase informa en el log
+        y se elimina su socket
         """
         sock = sock[0]
-        self.logs(self.usuarios[sock], "Desconectado", "-")
-        nombre = self.usuarios[sock]
-        self.usuarios_disponibles.append(nombre)
+        self.logs("-", "Desconectado", "-")
         del self.sockets[sock]
         del self.threads_listen[sock]
     
@@ -175,8 +168,8 @@ class listen_client_thread(QThread):
                     socket_guardado = [self.sock]
                     self.senal_desconexion.emit(socket_guardado)
                     break
-            while len(mensaje) < largo_bytes_mensaje:
-                read_length = min(4096, largo_bytes_mensaje - len(mensaje))
+            while len(mensaje) < largo_mensaje:
+                read_length = min(4096, largo_mensaje - len(mensaje))
                 mensaje.extend(self.sock.recv(read_length))
             # cargamos
             cargado = pickle.loads(mensaje)
