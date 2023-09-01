@@ -15,6 +15,7 @@ class VentanaInterfaz(QWidget):
     # Senales
     senal_automatico = pyqtSignal()
     senal_manual = pyqtSignal()
+    senal_mensaje = pyqtSignal(str)
 
     def __init__(self) -> None:
 
@@ -40,9 +41,9 @@ class VentanaInterfaz(QWidget):
 
         ### Inicio Botones ###
         self.boton_manual = QPushButton("Modo Manual", self)
-        self.boton_manual.setFixedSize(80, 50)
+        self.boton_manual.setFixedSize(100, 50)
         self.boton_automatico = QPushButton("Modo Automático", self)
-        self.boton_automatico.setFixedSize(80, 50)
+        self.boton_automatico.setFixedSize(100, 50)
         ### --Fin  Inicio Botones-- ###
 
         ### Inicio Linea Editable ###
@@ -109,14 +110,16 @@ class VentanaInterfaz(QWidget):
     
     ## Conexiones esperadas desde front al back ##
     def manual(self) -> None:
-        pass
+        self.senal_manual.emit()
 
     def automatico(self) -> None:
-        pass
+        self.senal_automatico.emit()
 
     def envio(self) -> None:
-        pass
-    
+        mensaje = self.linea_editable.text()
+        print(mensaje)
+        self.senal_mensaje.emit(mensaje)
+        
     ## miscelaneo ##
     def abrir(self):
         self.show()
