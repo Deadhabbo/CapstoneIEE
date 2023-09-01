@@ -30,7 +30,7 @@ if __name__ == '__main__':
         print(traceback)
 
     #port = int(sys.argv[1])
-    port = 832
+    port = 2020
     host = PARAMETROS["host"] # Asignamos ip host
 
     sys.__excepthook__ = hook
