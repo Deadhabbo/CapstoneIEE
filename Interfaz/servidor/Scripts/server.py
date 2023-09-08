@@ -112,34 +112,6 @@ class Server(QObject):
         del self.sockets[sock]
         del self.threads_listen[sock]
     
-    # def proceso_aceptacion(self, socket_cliente, address):
-    #     """
-    #     Cuando un cliente se conecta al servidor se guardan sus datos
-    #     y se le asigna un nombre
-    #     """
-    #     socket_cliente = socket_cliente[0]
-    #     address = address
-    #     self.sockets[socket_cliente] = address
-    #     if len(self.usuarios_disponibles) > 0:
-    #         aleatorio = randint(0, len(self.usuarios_disponibles) - 1)
-    #         nombre = self.usuarios_disponibles.pop(aleatorio)
-    #         self.usuarios[socket_cliente] = nombre
-    #         thread = listen_client_thread(self, socket_cliente)
-    #         thread.senal_desconexion.connect(self.desconexion_usuario)
-    #         thread.senal_desencriptado.connect(self.handle_command)
-    #         self.threads_listen[socket_cliente] = thread
-    #         thread.start()
-    #         self.logs(nombre, "Conectarse", "-")
-    #         self.juego.agregar_jugador(Jugador(nombre))
-    #         nombres = list(self.usuarios.values())
-    #         mensaje = []
-    #         for indice in range(len(nombres)):
-    #             mensaje.append([indice, nombres[indice]])
-    #         self.send(["Ventana Inicio", mensaje], socket_cliente)
-    #     else:
-    #         ##pasa si estamos llenos
-    #         pass
-
 """
 Comienzo de las clases que permiten ejecutar los
 threads
