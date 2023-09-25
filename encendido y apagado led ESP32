@@ -1,19 +1,19 @@
-const int ledPin = 13; // Utilizamos el LED incorporado para la demostración
-
+char option = ' ';
+int LED = 14;
 void setup() {
-  pinMode(ledPin, OUTPUT);
   Serial.begin(9600);
+  pinMode(LED, OUTPUT);
 }
-
 void loop() {
-  if (Serial.available()) {
-    char character = Serial.read();
-    
-    if (character == 'H') {
-      digitalWrite(ledPin, HIGH);
+  if(Serial.available() != 0){
+    option = Serial.read();
+    if(option == 'a'){
+      digitalWrite(LED, LOW);
     }
-    else if (character == 'L') {
-      digitalWrite(ledPin, LOW);
+    else if(option == 'b'){
+      digitalWrite(LED, HIGH);
     }
   }
+  
+  delay(100);
 }
