@@ -49,15 +49,14 @@ class Camara(QThread):
                         cX = int(M["m10"] / M["m00"])
                         cY = int(M["m01"] / M["m00"])
 
-
                         if int(cX) > 320 and int(cY) >240:
-                            self.ser.write(b'H')
+                            self.ser.write(b'U')
                         elif int(cX) < 320 and int(cY) >240:
-                            self.ser.write(b'L')
+                            self.ser.write(b'D')
                         elif int(cX) < 320 and int(cY) <240:
-                            self.ser.write(b'H')
+                            self.ser.write(b'R')
                         elif int(cX) > 320 and int(cY) <240:
-                            self.ser.write(b'L')
+                            self.ser.write(b'L') 
 
                         # Dibujar el centroide en el frame original y el filtrado
                         cv.circle(self.frame, (cX, cY), 5, (255, 0, 0), -1)
