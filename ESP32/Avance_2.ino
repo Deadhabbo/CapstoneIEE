@@ -1,6 +1,5 @@
 #include <AccelStepper.h>
 
-
 #define dirPinMotor1 12
 #define stepPinMotor1 14
 #define dirPinMotor2 2
@@ -28,12 +27,12 @@ void loop() {
     
     if (option == 'R') {
       
-      stepper1.move(800); // Mover el stepper1 200 pasos en dirección positiva
-       // Mover el stepper2 200 pasos en dirección negativa (suponiendo que quieres mover el otro motor en dirección opuesta)
+      stepper1.move(800); 
+       
     } else if (option == 'L') {
-      stepper1.move(-800); // Mover el stepper1 200 pasos en dirección negativa
+      stepper1.move(-800); 
       
-       // Mover el stepper2 200 pasos en dirección positiva
+       
     } else if (option == 'D'){
       stepper2.move(800);
       stepper1.move(800);
