@@ -27,10 +27,10 @@ class Camara(QThread):
         self.camera.resolution = (640, 480)
         self.camera.framerate = 32
         time.sleep(0.1)
-        rawCapture = PiRGBArray(self.camera, size=(640, 480))
+        rawCapture = PiRGBArray(self.camera, size = (640, 480))
         cv.namedWindow('Original Image')
         cv.setMouseCallback('Original Image', self.calibrate_color)
-
+        anterior = ""
         for capture in self.camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
             self.frame = capture.array
 
@@ -50,13 +50,29 @@ class Camara(QThread):
                         cY = int(M["m01"] / M["m00"])
 
                         if int(cX) > 320 and int(cY) >240:
-                            self.ser.write(b'U')
+                            if anterior != "D":
+                                self.ser.write(b'D')
+                                anterior = "D"
+                                envio = "D"
+                                print(envio) 
                         elif int(cX) < 320 and int(cY) >240:
-                            self.ser.write(b'D')
+                            if anterior != "L":
+                                self.ser.write(b'L')
+                                anterior = "L"
+                                envio = "L"
+                                print(envio)
                         elif int(cX) < 320 and int(cY) <240:
-                            self.ser.write(b'R')
+                            if anterior != "U":
+                                self.ser.write(b'U')
+                                anterior = "U"
+                                envio = "U"
+                                print(envio)
                         elif int(cX) > 320 and int(cY) <240:
-                            self.ser.write(b'L') 
+                            if anterior != "R":
+                                self.ser.write(b'R')
+                                anterior = "R"
+                                envio = "R"
+                                print(envio)
 
                         # Dibujar el centroide en el frame original y el filtrado
                         cv.circle(self.frame, (cX, cY), 5, (255, 0, 0), -1)
@@ -81,7 +97,7 @@ class Camara(QThread):
             if cv.waitKey(1) & 0xFF == ord('q'):
                 break
 
-            cv.destroyAllWindows()
+        cv.destroyAllWindows()
     
     def calibrate_color(self, event, x, y, flags, param):
         if event == cv.EVENT_LBUTTONDOWN:

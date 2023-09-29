@@ -4,8 +4,8 @@ import json
 from Scripts.serverTCP import ServerTCP
 from Scripts.serverUDP import ServerUDP
 from Scripts.control import Control
-from Scripts.camara_v2 import Camara
-#from Scripts.camara import Camara
+#from Scripts.camara_v2 import Camara
+from Scripts.camara import Camara
 from PyQt5.QtWidgets import QApplication
 
 archivo_parametros = open("parametros.json", encoding="utf-8")#Abrimos archivo
