@@ -32,7 +32,6 @@ class HiloPrincipal(threading.Thread):
     def run(self):
         
         try:
-            self.serverTCP.start()
             self.serverUDP.start()
             self.camara.start()
             while True:

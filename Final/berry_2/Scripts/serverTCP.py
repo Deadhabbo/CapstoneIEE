@@ -6,7 +6,7 @@ import json
 archivo_parametros = open("parametros.json", encoding="utf-8")#Abrimos archivo
 PARAMETROS = json.load(archivo_parametros) # cargamos
 
-class ServerTCP(threading.Thread):
+class ServerTCP:
     def __init__(self, port, host, control):
         super().__init__(name="TCP")
         print("Inicializando servidor...")
@@ -15,14 +15,9 @@ class ServerTCP(threading.Thread):
         self.port = port
         self.socket_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.control = control
-        # self.bind_and_listen()
-        # self.accept_connections()
-    
-    def run(self):
         self.bind_and_listen()
         self.accept_connections()
-        while True:
-            pass
+    
 
     def logs(self, cliente, evento, descripcion):
         linea = [cliente, "|", evento, "|" , descripcion]
@@ -111,6 +106,7 @@ class ServerTCP(threading.Thread):
                     mensaje.extend(self.sock.recv(read_length))
                 # cargamos
                 cargado = pickle.loads(mensaje)
+                print("Se recibe/cargado", cargado)
                 if cargado != "":
                     # El método `self.handle_command()` debe ser definido.
                     # Este realizará toda la lógica asociado a los mensajes
