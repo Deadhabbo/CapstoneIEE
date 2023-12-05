@@ -1,0 +1,4 @@
+{
+    "host": "localhost",
+    "RUTA_ICONO" : ["sprites", "logo.png"]
+}
