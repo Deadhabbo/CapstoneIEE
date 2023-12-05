@@ -35,7 +35,7 @@ class ServerUDP(threading.Thread):
         encoded,buffer = cv2.imencode('.jpg', frame,[cv2.IMWRITE_JPEG_QUALITY, 80])
         if self.client_addr != None:
             message = base64.b64encode(buffer)
-            self.sock.sendto(message, self.client_addr)
+            self.server_socket.sendto(message, self.client_addr)
         frame = cv2.putText(frame,'FPS: '+str(30),(10,40),cv2.FONT_HERSHEY_SIMPLEX,0.7,(0,0,255),2)
         #cv2.imshow('TRANSMITTING VIDEO',frame)
     
