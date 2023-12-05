@@ -26,11 +26,14 @@ class HiloPrincipal(threading.Thread):
         self.serverUDP = ServerUDP(udpport, host)
 
         self.camara = Camara(self.serverUDP)
+
         
         
     def run(self):
         
         try:
+            self.serverTCP.start()
+            self.serverUDP.start()
             self.camara.start()
             while True:
                 pass
