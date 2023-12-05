@@ -27,20 +27,15 @@ class HiloPrincipal(threading.Thread):
             camara = Camara(serverUDP)
 
             # Iniciar los hilos
-            serverTCP.start()
             serverUDP.start()
             camara.start()
 
             # Esperar a que los hilos terminen
-            serverTCP.join()
             serverUDP.join()
             camara.join()
 
         except KeyboardInterrupt:
             print("Finalizado")
-        finally:
-            # Agregar cualquier código de limpieza aquí
-            pass
 
 
 if __name__ == '__main__':
