@@ -9,6 +9,30 @@ import base64
 BUFF_SIZE = 921600
 
 
+class ServerUDPThread(QThread):
+
+    senal_direccion = pyqtSignal(tuple)
+    senal_sock = pyqtSignal(list)
+
+    def __init__(self, parent, port, host):
+        super().__init__(parent)
+        self.port = port
+        self.host = host
+        self.client_addr = None
+
+    def run(self):
+
+        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, BUFF_SIZE)
+        self.server_socket.bind((self.host, self.port))
+        self.senal_sock.emit([self.server_socket])
+        while True:
+            msg,client_addr = self.server_socket.recvfrom(BUFF_SIZE)
+            self.client_addr = client_addr
+            self.senal_direccion.emit(client_addr)
+            print("Aquí llego si que si", msg)
+
+        
 class ServerUDP(QObject):
 
     def __init__(self, port, host) -> None:
@@ -42,27 +66,6 @@ class ServerUDP(QObject):
 
 
         
-class ServerUDPThread(QThread):
 
-    senal_direccion = pyqtSignal(tuple)
-    senal_sock = pyqtSignal(list)
-
-    def __init__(self, parent, port, host):
-        super().__init__(parent)
-        self.port = port
-        self.host = host
-        self.client_addr = None
-
-    def run(self):
-
-        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, BUFF_SIZE)
-        self.server_socket.bind((self.host, self.port))
-        self.senal_sock.emit([self.server_socket])
-        while True:
-            msg,client_addr = self.server_socket.recvfrom(BUFF_SIZE)
-            self.client_addr = client_addr
-            self.senal_direccion.emit(client_addr)
-            print("Aquí llego si que si", msg)
 
 
