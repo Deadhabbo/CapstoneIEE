@@ -8,9 +8,7 @@ PARAMETROS = json.load(archivo_parametros) # cargamos
 
 class ServerTCP:
     def __init__(self, port, host, control):
-        super().__init__(name="TCP")
         print("Inicializando servidor...")
-        self.daemon = True
         self.host = host
         self.port = port
         self.socket_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
