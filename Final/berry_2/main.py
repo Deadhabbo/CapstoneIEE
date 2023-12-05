@@ -22,7 +22,7 @@ class HiloPrincipal(threading.Thread):
 
         self.control = Control()
 
-        self.serverTCP = ServerTCP(tcpport, host)
+        self.serverTCP = ServerTCP(tcpport, host, self.control)
         self.serverUDP = ServerUDP(udpport, host)
 
         self.camara = Camara(self.serverUDP)
