@@ -78,6 +78,8 @@ class PiVideoStream(Thread):
             # preparation for the next frame
             self.frame = f.array
             self.rawCapture.truncate(0)
+            if self.procesador != None:
+                    self.procesador.procesar()
             
             # if the thread indicator variable is set, stop the thread
             # and release camera resources
@@ -96,6 +98,6 @@ class PiVideoStream(Thread):
         self.stopped = True
         # wait for the thread to finish
         self.join()
-        
+
     def asignar_procesador(self, procesador):
         self.procesador = procesador
