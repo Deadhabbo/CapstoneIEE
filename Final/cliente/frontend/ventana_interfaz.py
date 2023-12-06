@@ -130,7 +130,7 @@ class VentanaInterfaz(QWidget):
         ## Conectamos botones ##
 
         self.boton_modo.clicked.connect(self.enviar_modo)
-
+        self.update_plot()
     def cambiar_layout(self):
         if self.modo == "Calibración":
             pass
@@ -138,7 +138,6 @@ class VentanaInterfaz(QWidget):
             pass
     
     def update_plot(self):
-        # Drop off the first y element, append a new one.
         self.canvas.axes.cla()  # Clear the canvas.
         self.canvas.axes.plot(self.xdata, self.ydata, 'r')
         # Trigger the canvas to update and redraw.
