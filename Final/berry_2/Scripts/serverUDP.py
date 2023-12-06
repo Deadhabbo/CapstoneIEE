@@ -32,14 +32,14 @@ class ServerUDP(threading.Thread):
     
     def enviar(self, frame_entrante):
 
-        frame = frame_entrante[0]
+        frame = frame_entrante
         encoded,buffer = cv2.imencode('.jpg', frame,[cv2.IMWRITE_JPEG_QUALITY, 80])
         with self.client_addr_lock:
             if self.client_addr != None:
                 message = base64.b64encode(buffer)
                 self.server_socket.sendto(message, self.client_addr)
         frame = cv2.putText(frame,'FPS: '+str(30),(10,40),cv2.FONT_HERSHEY_SIMPLEX,0.7,(0,0,255),2)
-        #cv2.imshow('TRANSMITTING VIDEO',frame)
+        cv2.imshow('TRANSMITTING VIDEO',frame)
     
     def setear_cliente(self, direccion: tuple):
         self.client_addr = direccion
