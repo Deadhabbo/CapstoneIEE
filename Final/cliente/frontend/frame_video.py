@@ -27,10 +27,13 @@ class CuadroVideo(QLabel, QFrame):
             self.pressPos_izq = event.pos()
             self.x_izq = self.pressPos_izq.x()
             self.y_izq = self.pressPos_izq.y()
+            print("izquierdo", self.x_izq ,self.y_izq)
 
         elif event.button() == Qt.RightButton:
             self.pressPos_der = event.pos()
             self.x_der = self.pressPos_der.x()
             self.y_der = self.pressPos_der.y()
+            print("derecho", self.x_der ,self.y_der)
+
 
 
