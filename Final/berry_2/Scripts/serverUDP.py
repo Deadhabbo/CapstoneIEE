@@ -38,12 +38,13 @@ class ServerUDP(threading.Thread):
             if self.client_addr != None:
                 message = base64.b64encode(buffer)
                 self.server_socket.sendto(message, self.client_addr)
-        frame = cv2.putText(frame,'FPS: '+str(30),(10,40),cv2.FONT_HERSHEY_SIMPLEX,0.7,(0,0,255),2)
-        cv2.imshow('TRANSMITTING VIDEO',frame)
+        # frame = cv2.putText(frame,'FPS: '+str(30),(10,40),cv2.FONT_HERSHEY_SIMPLEX,0.7,(0,0,255),2)
+        # cv2.imshow('TRANSMITTING VIDEO',frame)
     
     def setear_cliente(self, direccion: tuple):
         self.client_addr = direccion
-    
+
+
     def setear_sock(self, sock:list):
         self.sock: socket = sock[0]
         print(type(self.sock))
