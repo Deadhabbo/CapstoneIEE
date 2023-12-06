@@ -95,7 +95,8 @@ class listen_thread(QThread):
                 mensaje.extend(self.sock.recv(read_length))
 
             desencriptado_util = pickle.loads(mensaje)
-            print("Me llega", desencriptado_util)
-            self.senal_desencriptado.emit(desencriptado_util) # Emitimos senal 
+            #print("Me llega", desencriptado_util)
+            if desencriptado_util != None:
+                self.senal_desencriptado.emit(desencriptado_util) # Emitimos senal 
 
 
