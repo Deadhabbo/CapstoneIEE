@@ -16,15 +16,18 @@ class Logica(QObject):
     
     
     def mandar_automatico(self):
-        mensaje = ["modo","Automatico"]
+        mensaje = ["modo","Gráficos"]
         self.senal_mensaje.emit(mensaje)
     
     def mandar_manual(self):
-        mensaje = ["modo","Manual"]
+        mensaje = ["modo","Calibración"]
         self.senal_mensaje.emit(mensaje)
     
     def mandar_mensaje_escrito(self, mensaje :str):
         self.senal_mensaje.emit(["escrito", mensaje])
+    
+    def mandar_pixel(self, lista:list):
+        self.senal_mensaje.emit(["pixel", lista])
     
 
     #### Manejo mensajes ####

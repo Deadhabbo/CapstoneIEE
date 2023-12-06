@@ -49,7 +49,7 @@ class VentanaInterfaz(QWidget):
 
         ### Inicio Selector Modo ###
         self.selector_modo = QComboBox()
-        self.selector_modo.addItems(["Modo Manual", "Modo Automático"])
+        self.selector_modo.addItems(["Modo Calibración", "Modo Gráficos"])
         self.setWindowIcon(QIcon(self.ruta_icono))
         ### --Fin Selector Modo-- ###
 
@@ -62,6 +62,7 @@ class VentanaInterfaz(QWidget):
 
         ### Inicio Espacio Video ###
         self.frame_video = CuadroVideo()
+        
         ### -- Fin Espacio Video -- ###
 
         ### Inicio Info ###
@@ -123,6 +124,11 @@ class VentanaInterfaz(QWidget):
 
         self.boton_modo.clicked.connect(self.enviar_modo)
 
+    def cambiar_layout(self):
+        if self.modo == "Calibración":
+            pass
+        else:
+            pass
 
     ## Conexiones esperadas del back al front ##
     def cambiar_texto_info(self, texto: str) -> None:
@@ -138,11 +144,13 @@ class VentanaInterfaz(QWidget):
     def enviar_modo(self):
         texto_actual = str(self.selector_modo.currentText())
         print(texto_actual)
-        if texto_actual == "Modo Manual":
+        
+        if texto_actual == "Modo Calibración":
             self.senal_manual.emit()
         
-        elif texto_actual == "Modo Automático":
+        elif texto_actual == "Modo Gráficos":
             self.senal_automatico.emit()
+
 
     ## miscelaneo ##
     def abrir(self):

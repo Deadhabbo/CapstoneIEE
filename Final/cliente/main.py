@@ -25,8 +25,6 @@ class InterfazCliente(QApplication):
         self.clienteTCP = ClienteTCP(tcpport, host)
         
 
-        
-        
         self.conectar_senales()
         self.ventana.abrir()
         
@@ -38,6 +36,7 @@ class InterfazCliente(QApplication):
         self.ventana.senal_automatico.connect(self.logica.mandar_automatico)
         self.ventana.senal_manual.connect(self.logica.mandar_manual)
         self.ventana.senal_mensaje.connect(self.logica.mandar_mensaje_escrito)
+        self.ventana.frame_video.senal_click.connect(self.logica.mandar_pixel)
 
         # logica -> cliente
         self.logica.senal_mensaje.connect(self.clienteTCP.send)
