@@ -1,7 +1,7 @@
 import cv2 as cv
 import numpy as np
 import time
-#import serial
+import serial
 import csv
 from threading import Thread
 
@@ -16,7 +16,7 @@ class Procesado:
         self.lower_bound_blue = np.array([0, 0, 0])
         self.upper_bound_blue = np.array([255, 255, 255])
 
-        #self.ser = serial.Serial('/dev/ttyUSB0', 9600)
+        self.ser = serial.Serial('/dev/ttyUSB0', 9600)
     
     def calibrate_color(self, boton ,x, y):
         color = self.camara.frame[y, x]
@@ -74,7 +74,7 @@ class Procesado:
                 cv.putText(frame, position_str, (10, 80), cv.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
 
         data_string = "{},{},{},{}\n".format(cX1, cY1, cX2, cY2)
-        #self.ser.write(data_string.encode())
+        self.ser.write(data_string.encode())
 
         # Escribir las coordenadas en el archivo CSV
         #csv_writer.writerow([cX1, cY1, cX2, cY2])
