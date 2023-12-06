@@ -29,8 +29,8 @@ class Procesado:
         
         elif boton == "Derecho":
             hsv_color = cv.cvtColor(np.uint8([[color]]), cv.COLOR_BGR2HSV)[0][0]
-            self.lower_bound_blue = np.array([hsv_color[0] - 10, 100, 100])
-            self.upper_bound_blue = np.array([hsv_color[0] + 10, 255, 255])
+            self.lower_bound_blue = np.array([hsv_color[0] - 20, 190, 190])
+            self.upper_bound_blue = np.array([hsv_color[0] + 20, 210, 210])
             print("cambio der")
     
     def procesar(self):
