@@ -13,8 +13,8 @@ class ServerUDP(threading.Thread):
         self.daemon = True
         self.port = port
         self.host = host
-
         self.client_addr = None
+        self.client_addr_lock = threading.Lock()  # Agrega un bloqueo
 
         self.server_socket: socket = None
 
@@ -26,16 +26,18 @@ class ServerUDP(threading.Thread):
         self.server_socket.bind((self.host, self.port))
         while True:
             msg, client_addr = self.server_socket.recvfrom(BUFF_SIZE)
-            self.client_addr = client_addr
+            with self.client_addr_lock:
+                self.client_addr = client_addr
             print("Aquí llego si que si", msg)
     
     def enviar(self, frame_entrante):
 
         frame = frame_entrante[0]
         encoded,buffer = cv2.imencode('.jpg', frame,[cv2.IMWRITE_JPEG_QUALITY, 80])
-        if self.client_addr != None:
-            message = base64.b64encode(buffer)
-            self.server_socket.sendto(message, self.client_addr)
+        with self.client_addr_lock:
+            if self.client_addr != None:
+                message = base64.b64encode(buffer)
+                self.server_socket.sendto(message, self.client_addr)
         frame = cv2.putText(frame,'FPS: '+str(30),(10,40),cv2.FONT_HERSHEY_SIMPLEX,0.7,(0,0,255),2)
         #cv2.imshow('TRANSMITTING VIDEO',frame)
     
