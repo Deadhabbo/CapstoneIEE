@@ -4,6 +4,8 @@ from Scripts.serverTCP import ServerTCP
 from Scripts.serverUDP import ServerUDP
 from Scripts.control import Control
 from Scripts.camara import Camara
+from Scripts.procesado import Procesado
+from Scripts.camara_v3 import PiCamera
 import threading
 
 archivo_parametros = open("parametros.json", encoding="utf-8")
@@ -22,10 +24,13 @@ class HiloPrincipal(threading.Thread):
 
     def run(self):
         try:
+            
             self.serverTCP = ServerTCP(self.tcpport, self.host, self.control)
             self.serverUDP = ServerUDP(self.udpport, self.host)
             self.camara = Camara(self.serverUDP)
-
+            self.procesado = Procesado(self.camara)
+            
+            self.serverTCP.asignar_procesador(self.procesado)
             # Iniciar los hilos
             self.serverUDP.start()
             self.camara.start()

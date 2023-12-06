@@ -134,6 +134,10 @@ class ServerTCP:
         
         elif comando == "pixel":
             print("Ha llegado el pixel", contenido)
+            self.procesador.calibrate_color(contenido[0] , contenido[1], contenido[2])
+    
+    def asignar_procesador(self, procesador):
+        self.procesador = procesador
     
     def desconexion_usuario(self) -> None:
         """
