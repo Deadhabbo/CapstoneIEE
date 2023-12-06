@@ -5,7 +5,7 @@ from Scripts.serverUDP import ServerUDP
 from Scripts.control import Control
 from Scripts.camara import Camara
 from Scripts.procesado import Procesado
-from Scripts.camara_v3 import PiCamera
+#from Scripts.camara_v3 import PiCamera
 import threading
 
 archivo_parametros = open("parametros.json", encoding="utf-8")
