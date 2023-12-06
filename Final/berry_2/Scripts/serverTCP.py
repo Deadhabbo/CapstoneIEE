@@ -131,6 +131,9 @@ class ServerTCP:
 
         elif comando == "escrito":
             print("Ha llegado el mensaje:", contenido)
+        
+        elif comando == "pixel":
+            print("Ha llegado el pixel", contenido)
     
     def desconexion_usuario(self) -> None:
         """
