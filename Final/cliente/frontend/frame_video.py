@@ -21,5 +21,11 @@ class CuadroVideo(QLabel, QFrame):
     def cambiar_frame(self, frame) -> None:
         self.setPixmap(QPixmap.fromImage(frame))
         self.show()
+    
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.pressPos = event.pos()
+            print(self.pressPos)
+
 
 
