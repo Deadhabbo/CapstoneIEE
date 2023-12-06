@@ -13,6 +13,6 @@ class Camara(threading.Thread):
         while True:
             while self.video.isOpened():
                 _,frame = self.video.read()
-                frame = imutils.resize(frame, width=WIDTH)
-                self.serverUDP.enviar(frame)
+                self.frame = imutils.resize(frame, width=WIDTH)
+                self.serverUDP.enviar(self.frame)
                 
