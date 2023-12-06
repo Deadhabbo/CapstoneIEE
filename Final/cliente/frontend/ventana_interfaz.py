@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QLineEdit
 from PyQt5.QtGui import  QPixmap, QIcon, QFont, QImage
 import json
 from os.path import join
+from grafico import MplCanvas
 
 from frontend.frame_video import CuadroVideo
 
@@ -23,6 +24,8 @@ class VentanaInterfaz(QWidget):
     def __init__(self) -> None:
 
         super().__init__()
+        self.xdata = [0,1,2,3,4]
+        self.ydata = [10,1,20,3,40]
         ## Definimos geometria y nombre ventana
         self.setGeometry(80, 80, 1000, 1000)
         self.setWindowTitle("Interfaz")
@@ -62,7 +65,10 @@ class VentanaInterfaz(QWidget):
 
         ### Inicio Espacio Video ###
         self.frame_video = CuadroVideo()
-        
+        ### -- Fin Espacio Video -- ###
+
+        ### Inicio Espacio Video ###
+        self.grafico = MplCanvas()
         ### -- Fin Espacio Video -- ###
 
         ### Inicio Info ###
@@ -71,10 +77,10 @@ class VentanaInterfaz(QWidget):
         self.info_1.setFont(self.fuente_info_2)
         self.info_1.setStyleSheet("color: black;")
 
-        self.info_2 = QLabel("Modo Actual:")
-        self.info_2.setAlignment(Qt.AlignCenter)
-        self.info_2.setFont(self.fuente_info_2)
-        self.info_2.setStyleSheet("color: black;")
+        # self.info_2 = QLabel("Modo Actual:")
+        # self.info_2.setAlignment(Qt.AlignCenter)
+        # self.info_2.setFont(self.fuente_info_2)
+        # self.info_2.setStyleSheet("color: black;")
 
 
         ### --Fin Info-- ###
@@ -101,14 +107,15 @@ class VentanaInterfaz(QWidget):
 
         
         ### Inicio Layout Inf-Der ###
-        layout_inf_der= QVBoxLayout()
-        layout_inf_der.addWidget(self.info_2)
+        # layout_inf_der= QVBoxLayout()
+        # layout_inf_der.addWidget(self.info_2)
         ### --Fin Layout Sup-Der-- ###
 
         ### Inicio Layout Inferior ###
         layout_inferior = QHBoxLayout()
-        layout_inferior.addStretch()
-        layout_inferior.addLayout(layout_inf_der)
+        layout_inferior.addWidget(self.grafico)
+        #layout_inferior.addStretch()
+        #layout_inferior.addLayout(layout_inf_der)
         ### --Fin Layout Inferior-- ###
 
 
@@ -129,6 +136,13 @@ class VentanaInterfaz(QWidget):
             pass
         else:
             pass
+    
+    def update_plot(self):
+        # Drop off the first y element, append a new one.
+        self.canvas.axes.cla()  # Clear the canvas.
+        self.canvas.axes.plot(self.xdata, self.ydata, 'r')
+        # Trigger the canvas to update and redraw.
+        self.canvas.draw()
 
     ## Conexiones esperadas del back al front ##
     def cambiar_texto_info(self, texto: str) -> None:
