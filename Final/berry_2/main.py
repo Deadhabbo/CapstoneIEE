@@ -5,7 +5,7 @@ from Scripts.serverUDP import ServerUDP
 from Scripts.control import Control
 from Scripts.camara import Camara
 from Scripts.procesado import Procesado
-#from Scripts.camara_v3 import PiCamera
+from Scripts.camara_v3 import PiVideoStream
 import threading
 
 archivo_parametros = open("parametros.json", encoding="utf-8")
@@ -27,7 +27,8 @@ class HiloPrincipal(threading.Thread):
             
             self.serverTCP = ServerTCP(self.tcpport, self.host, self.control)
             self.serverUDP = ServerUDP(self.udpport, self.host)
-            self.camara = Camara(self.serverUDP)
+            #self.camara = Camara(self.serverUDP)
+            self.camara = PiVideoStream(self.serverUDP)
             self.procesado = Procesado(self.camara)
             self.camara.procesador = self.procesado
             

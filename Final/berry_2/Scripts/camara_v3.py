@@ -52,7 +52,7 @@ from threading import Thread
 import cv2
 
 class PiVideoStream(Thread):
-    def __init__(self, resolution=(320, 240), framerate=32):
+    def __init__(self, serverUDP resolution=(320, 240), framerate=32):
         # initialize the thread
         super().__init__()
         
@@ -68,6 +68,8 @@ class PiVideoStream(Thread):
         # if the thread should be stopped
         self.frame = None
         self.stopped = False
+        self.serverUDP = serverUDP
+        self.procesador = None
         
     def run(self):
         # start capturing frames
@@ -94,3 +96,6 @@ class PiVideoStream(Thread):
         self.stopped = True
         # wait for the thread to finish
         self.join()
+        
+    def asignar_procesador(self, procesador):
+        self.procesador = procesador
