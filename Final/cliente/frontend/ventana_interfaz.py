@@ -138,10 +138,10 @@ class VentanaInterfaz(QWidget):
             pass
     
     def update_plot(self):
-        self.canvas.axes.cla()  # Clear the canvas.
-        self.canvas.axes.plot(self.xdata, self.ydata, 'r')
+        self.grafico.axes.cla()  # Clear the canvas.
+        self.grafico.axes.plot(self.xdata, self.ydata, 'r')
         # Trigger the canvas to update and redraw.
-        self.canvas.draw()
+        self.grafico.draw()
 
     ## Conexiones esperadas del back al front ##
     def cambiar_texto_info(self, texto: str) -> None:
