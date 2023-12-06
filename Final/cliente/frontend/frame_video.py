@@ -24,8 +24,13 @@ class CuadroVideo(QLabel, QFrame):
     
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
-            self.pressPos = event.pos()
-            print(self.pressPos)
+            self.pressPos_izq = event.pos()
+            self.x_izq = self.pressPos_izq.x()
+            self.y_izq = self.pressPos_izq.y()
 
+        elif event.button() == Qt.RightButton:
+            self.pressPos_der = event.pos()
+            self.x_der = self.pressPos_der.x()
+            self.y_der = self.pressPos_der.y()
 
 
