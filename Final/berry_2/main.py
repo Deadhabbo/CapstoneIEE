@@ -29,6 +29,7 @@ class HiloPrincipal(threading.Thread):
             self.serverUDP = ServerUDP(self.udpport, self.host)
             self.camara = Camara(self.serverUDP)
             self.procesado = Procesado(self.camara)
+            self.camara.procesador = self.procesado
             
             self.serverTCP.asignar_procesador(self.procesado)
             # Iniciar los hilos
