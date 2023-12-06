@@ -1,7 +1,7 @@
 import cv2 as cv
 import numpy as np
 import time
-import serial
+#import serial
 import csv
 from threading import Thread
 
