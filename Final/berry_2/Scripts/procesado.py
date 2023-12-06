@@ -19,17 +19,19 @@ class Procesado:
         #self.ser = serial.Serial('/dev/ttyUSB0', 9600)
     
     def calibrate_color(self, boton ,x, y):
-        color = self.camara.frame[y,x]
+        color = self.camara.frame[y, x]
 
         if boton == "Izquierdo":
             self.lower_bound_red = np.array([color[0] - 40, color[1] - 40, color[2] - 100])
             self.upper_bound_red = np.array([color[0] + 40, color[1] + 40, color[2] + 100])
+            print("cambio izq")
+
         
         elif boton == "Derecho":
             hsv_color = cv.cvtColor(np.uint8([[color]]), cv.COLOR_BGR2HSV)[0][0]
             self.lower_bound_blue = np.array([hsv_color[0] - 10, 100, 100])
             self.upper_bound_blue = np.array([hsv_color[0] + 10, 255, 255])
-        
+            print("cambio der")
     
     def procesar(self):
         frame = self.camara.frame
