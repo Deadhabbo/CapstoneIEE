@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QLineEdit
 from PyQt5.QtGui import  QPixmap, QIcon, QFont, QImage
 import json
 from os.path import join
-from grafico import MplCanvas
+from frontend.grafico import MplCanvas
 
 from frontend.frame_video import CuadroVideo
 
