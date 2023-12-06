@@ -22,17 +22,17 @@ class HiloPrincipal(threading.Thread):
 
     def run(self):
         try:
-            serverTCP = ServerTCP(self.tcpport, self.host, self.control)
-            serverUDP = ServerUDP(self.udpport, self.host)
-            camara = Camara(serverUDP)
+            self.serverTCP = ServerTCP(self.tcpport, self.host, self.control)
+            self.serverUDP = ServerUDP(self.udpport, self.host)
+            self.camara = Camara(self.serverUDP)
 
             # Iniciar los hilos
-            serverUDP.start()
-            camara.start()
+            self.serverUDP.start()
+            self.camara.start()
 
             # Esperar a que los hilos terminen
-            serverUDP.join()
-            camara.join()
+            self.serverUDP.join()
+            self.camara.join()
 
         except KeyboardInterrupt:
             print("Finalizado")

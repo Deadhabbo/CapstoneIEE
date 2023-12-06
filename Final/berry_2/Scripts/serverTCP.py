@@ -89,7 +89,7 @@ class ServerTCP:
         while True:
             while True:
                 try: # intentamos leer mensaje
-                    largo_bytes_mensaje = self.sock.recv(4) # los 4 bytes del largo
+                    largo_bytes_mensaje = self.socket_server.recv(4) # los 4 bytes del largo
                     largo_mensaje = int.from_bytes(
                                     largo_bytes_mensaje, byteorder='little')
                     mensaje = bytearray() #Comenzamos bytearray
@@ -101,7 +101,7 @@ class ServerTCP:
                         break
                 while len(mensaje) < largo_mensaje:
                     read_length = min(4096, largo_mensaje - len(mensaje))
-                    mensaje.extend(self.sock.recv(read_length))
+                    mensaje.extend(self.socket_server.recv(read_length))
                 # cargamos
                 cargado = pickle.loads(mensaje)
                 print("Se recibe/cargado", cargado)
