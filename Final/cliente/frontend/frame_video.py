@@ -13,8 +13,8 @@ class CuadroVideo(QLabel, QFrame):
 
     def __init__(self):
         super().__init__()
-        self.setGeometry(0, 0, 640, 480)
-        self.setFixedSize(640, 480)
+        self.setGeometry(0, 0, 480,360)
+        self.setFixedSize(480, 360)
         self.setStyleSheet("background-color:black")
 
     

@@ -1,4 +1,4 @@
 {
-    "host": "127.0.0.1",
+    "host": "10.42.0.1",
     "RUTA_ICONO" : ["sprites", "logo.png"]
 }

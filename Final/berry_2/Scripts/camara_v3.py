@@ -80,7 +80,7 @@ class PiVideoStream(Thread):
             self.rawCapture.truncate(0)
             if self.procesador != None:
                     self.procesador.procesar()
-            
+            self.serverUDP.enviar(self.frame)
             # if the thread indicator variable is set, stop the thread
             # and release camera resources
             if self.stopped:

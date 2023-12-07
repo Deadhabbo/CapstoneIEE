@@ -36,7 +36,7 @@ class ClienteUDP(QThread):
             frame = cv2.imdecode(npdata,1)
             imagen = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             frame = cv2.putText(frame,'FPS: '+str(self.fps),(10,40),cv2.FONT_HERSHEY_SIMPLEX,0.7,(0,0,255),2)
-            cv2.imshow("RECEIVING VIDEO",frame)
+            #cv2.imshow("RECEIVING VIDEO",frame)
             key = cv2.waitKey(1) & 0xFF
             if key == ord('q'):
                 self.client_socket.close()
