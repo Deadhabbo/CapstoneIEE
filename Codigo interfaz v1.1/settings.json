@@ -1,0 +1,20 @@
+{
+  "point_radius": 50,
+  "vel": 3.0,
+  "distance": 154.0,
+  "random_max_counter_limits": [
+    249,
+    500
+  ],
+  "fly_max_counter_limits": [
+    7,
+    10
+  ],
+  "fly_max_angle": 22,
+  "sfly_max_counter_limits": [
+    1,
+    20
+  ],
+  "sfly_max_beta_value": 5.0,
+  "sfly_max_angle": 20
+}

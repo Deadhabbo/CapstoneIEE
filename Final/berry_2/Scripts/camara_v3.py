@@ -52,7 +52,7 @@ from threading import Thread
 import cv2
 
 class PiVideoStream(Thread):
-    def __init__(self, serverUDP resolution=(320, 240), framerate=32):
+    def __init__(self, serverUDP, resolution=(320, 240), framerate=32):
         # initialize the thread
         super().__init__()
         

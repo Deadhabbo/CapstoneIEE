@@ -1,0 +1,6 @@
+CROSS_SIZE = 35  # must be odd
+ZONE_MINIMUM_SIZE = (500, 500)
+PERIOD = 1 / 60
+SETTINGS_PATH = "settings.json"
+
+SFLY_MIN_BETA_VALUE = 1
