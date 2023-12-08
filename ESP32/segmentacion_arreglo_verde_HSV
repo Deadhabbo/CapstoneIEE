@@ -82,8 +82,7 @@ for capture in camera.capture_continuous(rawCapture, format="bgr", use_video_por
     ser.write(data_string.encode())
 
     cv.imshow('Original Image', frame)
-    cv.imshow('Filtered Red Colors', filtered_frame_red)
-    cv.imshow('Filtered Green Colors', filtered_frame_green)
+
 
     rawCapture.truncate(0)
 
