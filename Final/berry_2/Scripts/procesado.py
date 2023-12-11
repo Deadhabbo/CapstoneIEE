@@ -20,7 +20,7 @@ class Procesado:
     
     def calibrate_color(self, boton ,x, y):
         color = self.camara.frame[y, x]
-
+        CALIB = 20
         if boton == "Izquierdo":
             self.lower_bound_red = np.array([color[0] - 40, color[1] - 40, color[2] - 100])
             self.upper_bound_red = np.array([color[0] + 40, color[1] + 40, color[2] + 100])
@@ -28,17 +28,17 @@ class Procesado:
 
         
         elif boton == "Derecho":
-            hsv_color = cv.cvtColor(np.uint8([[color]]), cv.COLOR_BGR2HSV)[0][0]
-            self.lower_bound_blue = np.array([hsv_color[0] - 20, 190, 190])
-            self.upper_bound_blue = np.array([hsv_color[0] + 20, 210, 210])
+            #hsv_color = cv.cvtColor(np.uint8([[color]]), cv.COLOR_BGR2HSV)[0][0]
+            self.lower_bound_blue = np.array([color[0] - CALIB, color[1] - CALIB, color[2] - CALIB])
+            self.upper_bound_blue = np.array([color[0] + CALIB, color[1] + CALIB, color[2] + CALIB])
             print("cambio der")
     
     def procesar(self):
         frame = self.camara.frame
-        hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
+        #hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
 
         mask_red = cv.inRange(frame, self.lower_bound_red, self.upper_bound_red)
-        mask_blue = cv.inRange(hsv, self.lower_bound_blue, self.upper_bound_blue)
+        mask_blue = cv.inRange(frame, self.lower_bound_blue, self.upper_bound_blue)
 
         #filtered_frame_red = cv.bitwise_and(frame, frame, mask=mask_red)
         #filtered_frame_blue = cv.bitwise_and(frame, frame, mask=mask_blue)
