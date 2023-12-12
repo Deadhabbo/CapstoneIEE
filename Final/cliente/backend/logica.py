@@ -44,6 +44,8 @@ class Logica(QObject):
 
         if comando == "modo":
             self.senal_modo_actual_recibido.emit(contenido)
+        elif comando == "pos":
+            print(mensaje)
 
 
     def manejo_mensajes_udp(self, mensaje: list):
